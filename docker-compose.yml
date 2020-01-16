@@ -47,6 +47,8 @@ services:
       context: .
       dockerfile: Ocelot.Gateway/Dockerfile
     network_mode: mynet
+    volumes:
+        - /d/consul/ocelot/ocelot.json:/app/ocelot.json
     ports:
         - 84:80
     links:
