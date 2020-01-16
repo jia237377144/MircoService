@@ -1,0 +1,59 @@
+version: '3.4'
+
+services:
+  consulwebapi:
+    image: consulwwebapi
+    container_name: consulwebapi
+    build:
+      context: .
+      dockerfile: Consul_Service01/Dockerfile
+    network_mode: mynet
+    ports:
+        - 81:80
+    external_links:
+        - consulserver1
+        - consulclient1
+        - consulclient2
+  ocelotconsulclient1:
+    image: ocelotconsulclient1
+    container_name: ocelotconsulclient1
+    build:
+      context: .
+      dockerfile: Ocelot.Client1/Dockerfile
+    network_mode: mynet
+    ports:
+        - 82:80
+    external_links:
+        - consulserver1
+        - consulclient1
+        - consulclient2
+  ocelotconsulclient2:
+    image: ocelotconsulclient2
+    container_name: ocelotconsulclient2
+    build:
+      context: .
+      dockerfile: Ocelot.Client2/Dockerfile
+    network_mode: mynet
+    ports:
+        - 83:80
+    external_links:
+        - consulserver1
+        - consulclient1
+        - consulclient2
+  ocelot.gateway:
+    image: ocelotgateway
+    container_name: ocelotgateway
+    build:
+      context: .
+      dockerfile: Ocelot.Gateway/Dockerfile
+    network_mode: mynet
+    ports:
+        - 84:80
+    links:
+        - consulwebapi
+        - ocelotconsulclient1
+        - ocelotconsulclient2
+    external_links:
+        - consulserver1
+        - consulclient1
+        - consulclient2
