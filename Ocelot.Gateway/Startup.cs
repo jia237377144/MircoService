@@ -46,10 +46,10 @@ namespace Ocelot.Gateway
 
             //app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
 #if !DEBUG
 
             //×¢Èë·þÎñ
